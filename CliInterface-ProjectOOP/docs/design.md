@@ -146,8 +146,8 @@ CharacterCardView : IRenderable { CharacterCard + CharacterCardRenderer }
 
 ## 7.5. Завантаження графіки та буфер
 
-* `IGraphicsService` (Core) - інтерфейс для роботи з графікою персонажів: `DownloadAsync(url, cancellationToken)`, `TryGetCached(url)`, `SaveToLocal(url, stream)`;
-* Реалізація в `Infrastructure` - `HttpClient` з таймаутом, завантаження зображення за URL, збереження у локальну директорію даних (AppData/Local на Windows, `/usr/local` на Linux);
+* `IGraphicsService` (Core) - інтерфейс для роботи з графікою персонажів: `DownloadAndCacheAsync(url, cancellationToken)` повертає `(string? Path, bool Downloaded)`, `GetCachedPath(url)` повертає локальний шлях або null;
+* Реалізація в `Infrastructure` - `GraphicsService`, `HttpClient` з таймаутом, завантаження зображення за URL, збереження у локальну директорію даних (`Environment.SpecialFolder.LocalApplicationData`: AppData/Local на Windows, `~/.local/share` на Linux), ім'я файлу - SHA-256 хеш URL;
 * Буфер: перед кожним завантаженням перевіряється наявність локального файлу за хешем URL. Якщо файл уже існує - використовується він, HTTP-запит не виконується;
 * Це зменшує кількість запитів до сервера і дозволяє програмі працювати офлайн для раніше завантажених персонажів.
 
@@ -156,12 +156,10 @@ CharacterCardView : IRenderable { CharacterCard + CharacterCardRenderer }
 ### 8.1 Діаграма класів (варіант 2: IRenderable агрегує IRenderer)
 
 ![Діаграма класів](img/classes.png)
-джерело: [img/classes.puml](img/classes.puml)
 
 ### 8.2 Потік виконання
 
 ![Потік виконання](img/flow.png)
-джерело: [img/flow.puml](img/flow.puml)
 
 ## 9. Перевірка
 
