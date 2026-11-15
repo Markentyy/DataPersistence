@@ -10,12 +10,12 @@ namespace CliInterface.Core.Services
     public interface IGraphicsService
     {
         /// <summary>
-        /// Downloads the image at <paramref name="url"/> and saves it locally.
-        /// Returns the local file path, or null when the download fails.
+        /// Downloads the image at <paramref name="url"/> and saves it locally, or returns the cached path.
+        /// Returns the local file path and whether the image was newly downloaded (not taken from cache).
         /// </summary>
         /// <param name="url">The source image URL.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        Task<string?> DownloadAndCacheAsync(string url, CancellationToken cancellationToken = default);
+        Task<(string? Path, bool Downloaded)> DownloadAndCacheAsync(string url, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Returns the local cached file path for <paramref name="url"/>, or null when not cached.

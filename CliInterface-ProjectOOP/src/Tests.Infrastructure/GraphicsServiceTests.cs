@@ -15,11 +15,12 @@ namespace Tests.Infrastructure
         {
             IGraphicsService service = new GraphicsService();
 
-            string? result = await service.DownloadAndCacheAsync(
+            var (path, downloaded) = await service.DownloadAndCacheAsync(
                 "http://127.0.0.1:1/nonexistent.png",
                 CancellationToken.None);
 
-            Assert.Null(result);
+            Assert.Null(path);
+            Assert.False(downloaded);
         }
 
         [Fact]
@@ -46,9 +47,10 @@ namespace Tests.Infrastructure
         {
             IGraphicsService service = new GraphicsService();
 
-            string? result = await service.DownloadAndCacheAsync("");
+            var (path, downloaded) = await service.DownloadAndCacheAsync("");
 
-            Assert.Null(result);
+            Assert.Null(path);
+            Assert.False(downloaded);
         }
 
         [Fact]
@@ -57,6 +59,24 @@ namespace Tests.Infrastructure
             IGraphicsService service = new GraphicsService();
 
             Assert.Null(service.GetCachedPath(null!));
+        }
+
+        [Fact]
+        public async Task DownloadAndCacheAsync_TwiceSameUrl_DownloadedOnlyOnce()
+        {
+            IGraphicsService service = new GraphicsService();
+
+            var (path1, downloaded1) = await service.DownloadAndCacheAsync(
+                "http://127.0.0.1:1/test.png",
+                CancellationToken.None);
+            var (path2, downloaded2) = await service.DownloadAndCacheAsync(
+                "http://127.0.0.1:1/test.png",
+                CancellationToken.None);
+
+            Assert.False(downloaded1);
+            Assert.False(downloaded2);
+            Assert.Null(path1);
+            Assert.Null(path2);
         }
     }
 }

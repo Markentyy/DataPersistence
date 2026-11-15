@@ -63,8 +63,9 @@ try
         string? localGraphicsPath = null;
         if (stats.GraphicsUrl is not null)
         {
-            localGraphicsPath = await graphicsService.DownloadAndCacheAsync(stats.GraphicsUrl);
-            if (localGraphicsPath is not null)
+            var (path, downloaded) = await graphicsService.DownloadAndCacheAsync(stats.GraphicsUrl);
+            localGraphicsPath = path;
+            if (downloaded)
                 graphicsDownloaded++;
         }
 
@@ -80,7 +81,9 @@ try
 
     console.WriteLine($"Loaded {apiCharacters.Count} characters from catalog API.");
     if (graphicsDownloaded > 0)
-        console.WriteLine($"Downloaded {graphicsDownloaded} character graphics.");
+        console.WriteLine($"Downloaded {graphicsDownloaded} character graphics (buffered: {apiCharacters.Count - graphicsDownloaded}).");
+    else
+        console.WriteLine("All graphics already cached — no new downloads.");
 }
 catch (Exception ex)
 {

@@ -31,16 +31,17 @@ namespace CliInterface.Infrastructure.Services
         }
 
         /// <inheritdoc />
-        public Task<string?> DownloadAndCacheAsync(string url, CancellationToken cancellationToken = default)
+        public async Task<(string? Path, bool Downloaded)> DownloadAndCacheAsync(string url, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(url))
-                return Task.FromResult<string?>(null);
+                return (null, false);
 
             string? cached = GetCachedPath(url);
             if (cached is not null)
-                return Task.FromResult<string?>(cached);
+                return (cached, false);
 
-            return DownloadAsync(url, cancellationToken);
+            string? downloaded = await DownloadAsync(url, cancellationToken);
+            return (downloaded, downloaded is not null);
         }
 
         /// <inheritdoc />
