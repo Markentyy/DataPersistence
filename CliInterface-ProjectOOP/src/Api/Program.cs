@@ -24,6 +24,7 @@ app.MapGet("/characters", () =>
         element = c.Element,
         weapon = c.Weapon,
         region = c.Region,
+        graphicsUrl = c.GraphicsUrl,
         stats = new { health = c.Health, damage = c.Damage, armor = c.Armor, resist = c.Resist }
     }));
 });
@@ -42,6 +43,7 @@ app.MapGet("/characters/{name}", (string name) =>
             element = character.Element,
             weapon = character.Weapon,
             region = character.Region,
+            graphicsUrl = character.GraphicsUrl,
             stats = new { health = character.Health, damage = character.Damage, armor = character.Armor, resist = character.Resist }
         });
 });
@@ -71,7 +73,8 @@ static List<CharacterStats> ParseCharacters(string json)
             resist: GetDouble(stats, "resist"),
             element: GetString(item, "element"),
             weapon: GetString(item, "weapon"),
-            region: GetString(item, "region")));
+            region: GetString(item, "region"),
+            graphicsUrl: GetString(item, "graphicsUrl") ?? GetString(item, "graphics_url")));
     }
 
     return result;

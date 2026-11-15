@@ -8,7 +8,8 @@
     "health": 1100,
     "damage": 240,
     "armor": 80,
-    "resist": 10
+    "resist": 10,
+    "graphicsUrl": "https://gbaike-image.cdn.bcebos.com/08f790529822720e0cf38408a8901d46f21fbf097db7/08f790529822720e0cf38408a8901d46f21fbf097db7_url?x-bce-process=image/format,f_auto/resize,m_lfit,w_400,limit_1"
   },
   {
     "id": "char-2",
@@ -19,7 +20,8 @@
     "health": 1050,
     "damage": 180,
     "armor": 70,
-    "resist": 15
+    "resist": 15,
+    "graphicsUrl": "https://gbaike-image.cdn.bcebos.com/08f790529822720e0cf38408a8901d46f21fbf097db7/08f790529822720e0cf38408a8901d46f21fbf097db7_url?x-bce-process=image/format,f_auto/resize,m_lfit,w_400,limit_1"
   },
   {
     "id": "char-3",
@@ -30,7 +32,8 @@
     "health": 1250,
     "damage": 260,
     "armor": 90,
-    "resist": 20
+    "resist": 20,
+    "graphicsUrl": "https://gbaike-image.cdn.bcebos.com/08f790529822720e0cf38408a8901d46f21fbf097db7/08f790529822720e0cf38408a8901d46f21fbf097db7_url?x-bce-process=image/format,f_auto/resize,m_lfit,w_400,limit_1"
   },
   {
     "id": "char-4",
@@ -41,7 +44,8 @@
     "health": 900,
     "damage": 200,
     "armor": 60,
-    "resist": 25
+    "resist": 25,
+    "graphicsUrl": "https://gbaike-image.cdn.bcebos.com/08f790529822720e0cf38408a8901d46f21fbf097db7/08f790529822720e0cf38408a8901d46f21fbf097db7_url?x-bce-process=image/format,f_auto/resize,m_lfit,w_400,limit_1"
   },
   {
     "id": "char-5",
@@ -52,6 +56,7 @@
     "health": 1000,
     "damage": 220,
     "armor": 75,
-    "resist": 12
+    "resist": 12,
+    "graphicsUrl": "https://gbaike-image.cdn.bcebos.com/08f790529822720e0cf38408a8901d46f21fbf097db7/08f790529822720e0cf38408a8901d46f21fbf097db7_url?x-bce-process=image/format,f_auto/resize,m_lfit,w_400,limit_1"
   }
 ]

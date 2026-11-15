@@ -5,6 +5,7 @@ using CliInterface.Cli.Rendering;
 using CliInterface.Cli.Strategies;
 using CliInterface.Core.Catalog;
 using CliInterface.Core.GameSystem;
+using CliInterface.Core.Services;
 using CliInterface.Data;
 using CliInterface.Infrastructure.Services;
 
@@ -54,19 +55,32 @@ try
 
     var apiCharacters = await apiService.GetCharactersAsync();
 
+    IGraphicsService graphicsService = new GraphicsService();
+    int graphicsDownloaded = 0;
+
     foreach (var stats in apiCharacters)
     {
+        string? localGraphicsPath = null;
+        if (stats.GraphicsUrl is not null)
+        {
+            localGraphicsPath = await graphicsService.DownloadAndCacheAsync(stats.GraphicsUrl);
+            if (localGraphicsPath is not null)
+                graphicsDownloaded++;
+        }
+
         var character = new Character(
             name: stats.Name,
             maxHealth: stats.Health,
             baseArmor: stats.Armor,
             baseAttack: stats.Damage,
-            graphicsUrl: null);
+            graphicsUrl: localGraphicsPath);
 
         world.Characters.Add(character);
     }
 
     console.WriteLine($"Loaded {apiCharacters.Count} characters from catalog API.");
+    if (graphicsDownloaded > 0)
+        console.WriteLine($"Downloaded {graphicsDownloaded} character graphics.");
 }
 catch (Exception ex)
 {

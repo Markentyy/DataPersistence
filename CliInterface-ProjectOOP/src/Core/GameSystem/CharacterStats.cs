@@ -50,6 +50,11 @@ namespace CliInterface.Core.GameSystem
         public double Resist { get; }
 
         /// <summary>
+        /// Gets the link to the character artwork, or null when not provided.
+        /// </summary>
+        public string? GraphicsUrl { get; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CharacterStats"/> class.
         /// </summary>
         public CharacterStats(
@@ -60,7 +65,8 @@ namespace CliInterface.Core.GameSystem
             double resist,
             string? element = null,
             string? weapon = null,
-            string? region = null)
+            string? region = null,
+            string? graphicsUrl = null)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Character name must not be empty.", nameof(name));
@@ -81,12 +87,13 @@ namespace CliInterface.Core.GameSystem
             Damage = damage;
             Armor = armor;
             Resist = resist;
+            GraphicsUrl = string.IsNullOrWhiteSpace(graphicsUrl) ? null : graphicsUrl.Trim();
         }
 
         /// <summary>
         /// Returns a short one-line description of the character stats.
         /// </summary>
         public string Summary =>
-            $"{Name} ({Element ?? "-"}) — HP: {Health}, DMG: {Damage}, ARM: {Armor}, RES: {Resist}%";
+            $"{Name} ({Element ?? "-"}) - HP: {Health}, DMG: {Damage}, ARM: {Armor}, RES: {Resist}%";
     }
 }

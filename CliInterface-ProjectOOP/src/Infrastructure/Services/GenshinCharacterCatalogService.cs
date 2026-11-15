@@ -99,7 +99,8 @@ namespace CliInterface.Infrastructure.Services
                     resist: GetDouble(stats, "resist"),
                     element: GetString(item, "element"),
                     weapon: GetString(item, "weapon"),
-                    region: GetString(item, "region")));
+                    region: GetString(item, "region"),
+                    graphicsUrl: GetString(item, "graphicsUrl") ?? GetString(item, "graphics_url")));
             }
 
             return result;
